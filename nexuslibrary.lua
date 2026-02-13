@@ -12,16 +12,16 @@ Library.__index = Library
 
 -- Premium Configuration
 local CONFIG = {
-    MainColor = Color3.fromRGB(0, 0, 0),
-    SecondaryColor = Color3.fromRGB(15, 15, 15),
+    MainColor = Color3.fromRGB(20, 20, 25),
+    SecondaryColor = Color3.fromRGB(25, 25, 30),
     AccentColor = Color3.fromRGB(255, 255, 255),
     TextColor = Color3.fromRGB(255, 255, 255),
     
-    MainTransparency = 0.15,
-    ElementTransparency = 0.25,
+    MainTransparency = 0.08,
+    ElementTransparency = 0.12,
     
     CornerRadius = 12,
-    IconSize = 28,
+    IconSize = 20,
     
     AnimationSpeed = 0.35,
     FastAnimation = 0.15,
@@ -116,9 +116,7 @@ function Library.new(title)
         self.ScreenGui.Parent = game.CoreGui
     end
     
-    -- Background Blur
-    self.Blur = CreateBlur(game.Lighting, 0)
-    Tween(self.Blur, {Size = 18}, CONFIG.SlowAnimation)
+    -- No Blur Effect
     
     -- Main Container
     self.Main = Instance.new("Frame")
@@ -183,8 +181,8 @@ function Library.new(title)
     -- Close Button (Icon Only)
     self.CloseBtn = Instance.new("ImageButton")
     self.CloseBtn.Name = "CloseButton"
-    self.CloseBtn.Size = UDim2.new(0, 24, 0, 24)
-    self.CloseBtn.Position = UDim2.new(1, -34, 0.5, -12)
+    self.CloseBtn.Size = UDim2.new(0, 20, 0, 20)
+    self.CloseBtn.Position = UDim2.new(1, -30, 0.5, -10)
     self.CloseBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     self.CloseBtn.BackgroundTransparency = 0.4
     self.CloseBtn.Image = ICONS.Close
@@ -202,7 +200,7 @@ function Library.new(title)
     -- Close Button Animations
     self.CloseBtn.MouseEnter:Connect(function()
         Tween(self.CloseBtn, {
-            Size = UDim2.new(0, 28, 0, 28),
+            Size = UDim2.new(0, 24, 0, 24),
             BackgroundTransparency = 0.1,
             Rotation = 90
         }, CONFIG.FastAnimation, Enum.EasingStyle.Back)
@@ -211,7 +209,7 @@ function Library.new(title)
     
     self.CloseBtn.MouseLeave:Connect(function()
         Tween(self.CloseBtn, {
-            Size = UDim2.new(0, 24, 0, 24),
+            Size = UDim2.new(0, 20, 0, 20),
             BackgroundTransparency = 0.4,
             Rotation = 0
         }, CONFIG.FastAnimation)
@@ -224,16 +222,14 @@ function Library.new(title)
             Size = UDim2.new(0, 0, 0, 0),
             Rotation = 15
         }, CONFIG.AnimationSpeed, Enum.EasingStyle.Back, Enum.EasingDirection.In)
-        Tween(self.Blur, {Size = 0}, CONFIG.AnimationSpeed)
         wait(CONFIG.AnimationSpeed)
         self.ScreenGui:Destroy()
-        self.Blur:Destroy()
     end)
     
     -- Navigation Container
     self.NavBar = Instance.new("Frame")
     self.NavBar.Name = "Navigation"
-    self.NavBar.Size = UDim2.new(0, 65, 1, -55)
+    self.NavBar.Size = UDim2.new(0, 55, 1, -55)
     self.NavBar.Position = UDim2.new(0, 10, 0, 50)
     self.NavBar.BackgroundColor3 = CONFIG.SecondaryColor
     self.NavBar.BackgroundTransparency = 0.35
@@ -254,8 +250,8 @@ function Library.new(title)
     -- Content Container
     self.ContentFrame = Instance.new("Frame")
     self.ContentFrame.Name = "Content"
-    self.ContentFrame.Size = UDim2.new(1, -95, 1, -55)
-    self.ContentFrame.Position = UDim2.new(0, 85, 0, 50)
+    self.ContentFrame.Size = UDim2.new(1, -75, 1, -55)
+    self.ContentFrame.Position = UDim2.new(0, 70, 0, 50)
     self.ContentFrame.BackgroundColor3 = CONFIG.SecondaryColor
     self.ContentFrame.BackgroundTransparency = 0.35
     self.ContentFrame.BorderSizePixel = 0
@@ -284,7 +280,7 @@ function Library:CreateTab(name, iconId)
     -- Tab Button
     tab.Button = Instance.new("ImageButton")
     tab.Button.Name = name
-    tab.Button.Size = UDim2.new(0, 50, 0, 50)
+    tab.Button.Size = UDim2.new(0, 42, 0, 42)
     tab.Button.BackgroundColor3 = CONFIG.SecondaryColor
     tab.Button.BackgroundTransparency = 0.5
     tab.Button.BorderSizePixel = 0
@@ -302,10 +298,10 @@ function Library:CreateTab(name, iconId)
     btnStroke.Parent = tab.Button
     
     local btnPadding = Instance.new("UIPadding")
-    btnPadding.PaddingTop = UDim.new(0, 10)
-    btnPadding.PaddingBottom = UDim.new(0, 10)
-    btnPadding.PaddingLeft = UDim.new(0, 10)
-    btnPadding.PaddingRight = UDim.new(0, 10)
+    btnPadding.PaddingTop = UDim.new(0, 8)
+    btnPadding.PaddingBottom = UDim.new(0, 8)
+    btnPadding.PaddingLeft = UDim.new(0, 8)
+    btnPadding.PaddingRight = UDim.new(0, 8)
     btnPadding.Parent = tab.Button
     
     -- Tooltip
@@ -361,7 +357,7 @@ function Library:CreateTab(name, iconId)
         
         Tween(tab.Button, {
             BackgroundTransparency = 0.2,
-            Size = UDim2.new(0, 54, 0, 54)
+            Size = UDim2.new(0, 46, 0, 46)
         }, CONFIG.FastAnimation, Enum.EasingStyle.Back)
         Tween(tab.Button, {ImageColor3 = Color3.fromRGB(255, 255, 255)}, CONFIG.FastAnimation)
         Tween(btnStroke, {Transparency = 0.3}, CONFIG.FastAnimation)
@@ -375,7 +371,7 @@ function Library:CreateTab(name, iconId)
         if self.CurrentTab ~= tab then
             Tween(tab.Button, {
                 BackgroundTransparency = 0.5,
-                Size = UDim2.new(0, 50, 0, 50)
+                Size = UDim2.new(0, 42, 0, 42)
             }, CONFIG.FastAnimation)
             Tween(tab.Button, {ImageColor3 = Color3.fromRGB(180, 180, 180)}, CONFIG.FastAnimation)
             Tween(btnStroke, {Transparency = 0.7}, CONFIG.FastAnimation)
