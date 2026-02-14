@@ -1,6 +1,6 @@
 -- VOIDWARE STYLE HUB LIBRARY
--- Premium Black Theme with Blur Effects
--- Version: 2.0 Enhanced
+-- Premium Transparent Theme
+-- Version: 2.0 Fixed
 
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
@@ -10,7 +10,7 @@ local Players = game:GetService("Players")
 local Library = {}
 Library.__index = Library
 
--- Premium Configuration
+-- Configuration
 local CONFIG = {
     MainColor = Color3.fromRGB(20, 20, 25),
     SecondaryColor = Color3.fromRGB(25, 25, 30),
@@ -25,21 +25,21 @@ local CONFIG = {
     
     AnimationSpeed = 0.35,
     FastAnimation = 0.15,
-    SlowAnimation = 0.5,
+    SlowAnimation = 0.5
 }
 
--- Icons Library
+-- Icons
 local ICONS = {
     Home = "rbxassetid://10734950309",
     Combat = "rbxassetid://10747374131",
     Player = "rbxassetid://10734949856",
     Visual = "rbxassetid://10747372992",
-    Settings = "rbxassetid://10734949856",
+    Settings = "rbxassetid://10734920149",
     Misc = "rbxassetid://10734920149",
-    Close = "rbxassetid://10747384394",
+    Close = "rbxassetid://10747384394"
 }
 
--- Utility: Create Tween
+-- Utility: Tween
 local function Tween(instance, properties, duration, style, direction)
     local info = TweenInfo.new(
         duration or CONFIG.AnimationSpeed,
@@ -51,15 +51,7 @@ local function Tween(instance, properties, duration, style, direction)
     return tween
 end
 
--- Utility: Create Blur Effect
-local function CreateBlur(parent, size)
-    local blur = Instance.new("BlurEffect")
-    blur.Size = size or 12
-    blur.Parent = game.Lighting
-    return blur
-end
-
--- Utility: Make Draggable
+-- Utility: Draggable
 local function MakeDraggable(frame, handle)
     local dragging, dragInput, mousePos, framePos
     
@@ -95,7 +87,7 @@ local function MakeDraggable(frame, handle)
     end)
 end
 
--- Create Main Library
+-- Create Main Hub
 function Library.new(title)
     local self = setmetatable({}, Library)
     
@@ -106,7 +98,6 @@ function Library.new(title)
     self.ScreenGui.ResetOnSpawn = false
     self.ScreenGui.IgnoreGuiInset = true
     
-    -- Check for container
     if gethui then
         self.ScreenGui.Parent = gethui()
     elseif syn and syn.protect_gui then
@@ -115,8 +106,6 @@ function Library.new(title)
     else
         self.ScreenGui.Parent = game.CoreGui
     end
-    
-    -- No Blur Effect
     
     -- Main Container
     self.Main = Instance.new("Frame")
@@ -132,14 +121,14 @@ function Library.new(title)
     
     Instance.new("UICorner", self.Main).CornerRadius = UDim.new(0, CONFIG.CornerRadius)
     
-    -- Stroke Effect
+    -- Stroke
     local stroke = Instance.new("UIStroke")
     stroke.Color = Color3.fromRGB(40, 40, 40)
     stroke.Thickness = 1
     stroke.Transparency = 0.6
     stroke.Parent = self.Main
     
-    -- Glow Effect
+    -- Glow
     local glow = Instance.new("ImageLabel")
     glow.Name = "Glow"
     glow.Size = UDim2.new(1, 60, 1, 60)
@@ -178,7 +167,7 @@ function Library.new(title)
     self.Title.TextTransparency = 0
     self.Title.Parent = self.TopBar
     
-    -- Close Button (Icon Only)
+    -- Close Button
     self.CloseBtn = Instance.new("ImageButton")
     self.CloseBtn.Name = "CloseButton"
     self.CloseBtn.Size = UDim2.new(0, 20, 0, 20)
@@ -197,7 +186,7 @@ function Library.new(title)
     closeStroke.Transparency = 0.5
     closeStroke.Parent = self.CloseBtn
     
-    -- Close Button Animations
+    -- Close Animations
     self.CloseBtn.MouseEnter:Connect(function()
         Tween(self.CloseBtn, {
             Size = UDim2.new(0, 24, 0, 24),
@@ -226,7 +215,7 @@ function Library.new(title)
         self.ScreenGui:Destroy()
     end)
     
-    -- Navigation Container
+    -- Navigation Bar
     self.NavBar = Instance.new("Frame")
     self.NavBar.Name = "Navigation"
     self.NavBar.Size = UDim2.new(0, 55, 1, -55)
